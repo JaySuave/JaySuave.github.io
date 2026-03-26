@@ -3,54 +3,162 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>My Portfolio</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            line-height: 1.6;
-            margin: 0;
-            padding: 20px;
-            max-width: 800px;
-            margin: auto;
-            background-color: #f4f4f9;
-            color: #333;
-        }
-        h1, h2 { color: #2c3e50; }
-        .project {
-            background: #fff;
-            padding: 15px;
-            margin-bottom: 20px;
-            border-radius: 5px;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-        }
-        a { color: #3498db; text-decoration: none; }
-        a:hover { text-decoration: underline; }
-    </style>
+    <title>José Costa | Portfolio</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles/main.css">
 </head>
 <body>
-
-    <header>
-        <h1>Hello, I'm [Your Name]</h1>
-        <p>I'm a software developer. Welcome to my portfolio!</p>
+    <header class="site-header">
+        <div class="container nav-container">
+            <a href="#education" class="brand">
+                <img src="assets/profile/profile.svg" alt="José Costa profile photo" class="brand-avatar">
+                <span>JOSÉ COSTA</span>
+            </a>
+            <button class="menu-toggle" aria-expanded="false" aria-controls="main-nav" aria-label="Open navigation menu">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+            <nav id="main-nav" class="nav-links">
+                <a href="#education">Education</a>
+                <a href="#experience">Work Experience</a>
+                <a href="#projects">Some Projects</a>
+            </nav>
+        </div>
     </header>
 
     <main>
-        <h2>My Projects</h2>
+        <section id="education" class="section container">
+            <h2 class="section-title">EDUCATION</h2>
+            <div class="timeline education-list">
+                <article class="timeline-item education-item">
+                    <p class="timeline-date">2024 - 2026</p>
+                    <div class="timeline-content">
+                        <h3 class="timeline-title">Universidade do Porto</h3>
+                        <p class="timeline-subtitle">Master’s in Computer Engineering</p>
+                    </div>
+                </article>
 
-        <div class="project">
-            <h3><a href="https://github.com/yourusername/project1" target="_blank">Project Name 1</a></h3>
-            <p>A brief description of what this project does, the languages used, and what you learned building it.</p>
-        </div>
+                <article class="timeline-item education-item">
+                    <p class="timeline-date">2020 - 2024</p>
+                    <div class="timeline-content">
+                        <h3 class="timeline-title">Universidade do Porto</h3>
+                        <p class="timeline-subtitle">Bachelor’s in Computer Engineering</p>
+                    </div>
+                </article>
+            </div>
+        </section>
 
-        <div class="project">
-            <h3><a href="https://github.com/yourusername/project2" target="_blank">Project Name 2</a></h3>
-            <p>Another awesome project description goes here. Built with Python and React.</p>
-        </div>
+        <section id="experience" class="section container">
+            <h2 class="section-title">WORK EXPERIENCE</h2>
+            <div class="timeline">
+                <article class="timeline-item">
+                    <p class="timeline-date">2024 - Present</p>
+                    <div class="timeline-content">
+                        <h3 class="timeline-title">XXX</h3>
+                        <p class="timeline-subtitle">XXX</p>
+                        <p class="timeline-description">XXX</p>
+                    </div>
+                </article>
+                <article class="timeline-item">
+                    <p class="timeline-date">2024 - Present</p>
+                    <div class="timeline-content">
+                        <h3 class="timeline-title">XXX</h3>
+                        <p class="timeline-subtitle">XXX</p>
+                        <p class="timeline-description">XXX</p>
+                    </div>
+                </article>
+                <article class="timeline-item">
+                    <p class="timeline-date">2024 - Present</p>
+                    <div class="timeline-content">
+                        <h3 class="timeline-title">XXX</h3>
+                        <p class="timeline-subtitle">XXX</p>
+                        <p class="timeline-description">XXX</p>
+                    </div>
+                </article>
+            </div>
+        </section>
+
+        <section id="projects" class="section container">
+            <h2 class="section-title">SOME PROJECTS</h2>
+            <div class="projects-list">
+                <article class="project-row">
+                    <div class="project-content">
+                        <h3>XXX</h3>
+                        <div class="tags">
+                            <span>X</span>
+                            <span>X</span>
+                            <span>X</span>
+                        </div>
+                        <p>
+                            XXX
+                        <a href="https://github.com/" target="_blank" rel="noopener noreferrer">View on GitHub</a>
+                    </div>
+                    <div class="project-media">
+                        <img src="" alt="" loading="lazy">
+                    </div>
+                </article>
+
+                <article class="project-row">
+                    <div class="project-content">
+                        <h3>XXX</h3>
+                        <div class="tags">
+                            <span>X</span>
+                            <span>X</span>
+                            <span>X</span>
+                        </div>
+                        <p>
+                            XXX
+                        <a href="https://github.com/" target="_blank" rel="noopener noreferrer">View on GitHub</a>
+                    </div>
+                    <div class="project-media">
+                        <img src="" alt="" loading="lazy">
+                    </div>
+                </article>
+
+                <article class="project-row">
+                    <div class="project-content">
+                        <h3>XXX</h3>
+                        <div class="tags">
+                            <span>X</span>
+                            <span>X</span>
+                            <span>X</span>
+                        </div>
+                        <p>
+                            XXX
+                        <a href="https://github.com/" target="_blank" rel="noopener noreferrer">View on GitHub</a>
+                    </div>
+                    <div class="project-media">
+                        <img src="" alt="" loading="lazy">
+                    </div>
+                </article>
+                
+            </div>
+        </section>
     </main>
 
-    <footer>
-        <p>Contact me at: <a href="mailto:your.email@example.com">your.email@example.com</a></p>
+    <footer class="site-footer">
+        <div class="container footer-content">
+            <p>Let's Connect</p>
+            <div class="social-links">
+                <a href="https://github.com/" target="_blank" rel="noopener noreferrer" aria-label="GitHub">
+                    <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 .5a12 12 0 0 0-3.79 23.39c.6.11.82-.26.82-.58v-2.24c-3.34.73-4.04-1.41-4.04-1.41a3.18 3.18 0 0 0-1.33-1.76c-1.09-.75.08-.74.08-.74a2.52 2.52 0 0 1 1.84 1.24 2.56 2.56 0 0 0 3.49 1 2.56 2.56 0 0 1 .76-1.6c-2.67-.3-5.47-1.33-5.47-5.93a4.64 4.64 0 0 1 1.24-3.23 4.31 4.31 0 0 1 .12-3.18s1-.33 3.3 1.23a11.33 11.33 0 0 1 6 0c2.28-1.56 3.3-1.23 3.3-1.23a4.31 4.31 0 0 1 .12 3.18 4.64 4.64 0 0 1 1.24 3.23c0 4.61-2.81 5.62-5.49 5.92a2.87 2.87 0 0 1 .82 2.22v3.29c0 .32.22.69.83.58A12 12 0 0 0 12 .5Z"/></svg>
+                </a>
+                <a href="https://www.linkedin.com/" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn">
+                    <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4.98 3.5A2.5 2.5 0 1 0 5 8.5a2.5 2.5 0 0 0-.02-5ZM3 9h4v12H3V9Zm7 0h3.83v1.71h.05c.53-1 1.84-2.05 3.78-2.05 4.04 0 4.79 2.66 4.79 6.12V21h-4v-5.44c0-1.3-.02-2.97-1.81-2.97-1.82 0-2.1 1.42-2.1 2.88V21h-4V9Z"/></svg>
+                </a>
+                <a href="https://itch.io/" target="_blank" rel="noopener noreferrer" aria-label="itch.io">
+                    <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M2 8.67C2 7.04 3.34 6 5.06 6c.96 0 1.7.36 2.42.96.67-.6 1.42-.96 2.47-.96.98 0 1.78.38 2.5 1.1.72-.72 1.53-1.1 2.5-1.1 1.05 0 1.8.36 2.47.96.72-.6 1.46-.96 2.42-.96C20.66 6 22 7.04 22 8.67V16c0 1.75-1.25 3-3 3h-1v-2.5a1.5 1.5 0 1 0-3 0V19h-2v-2.5a1.5 1.5 0 1 0-3 0V19H8v-2.5a1.5 1.5 0 1 0-3 0V19H4c-1.75 0-3-1.25-3-3V8.67Z"/></svg>
+                </a>
+                <a href="mailto:your.email@up.pt" aria-label="Email">
+                    <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 5h18a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V6a1 1 0 0 1 1-1Zm0 2v.2L12 13l9-5.8V7H3Zm18 10V9.5l-8.46 5.45a1 1 0 0 1-1.08 0L3 9.5V17h18Z"/></svg>
+                </a>
+            </div>
+        </div>
     </footer>
 
+    <script src="scripts/main.js"></script>
 </body>
 </html>
