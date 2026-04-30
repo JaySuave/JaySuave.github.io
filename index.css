@@ -64,11 +64,81 @@ a:hover {
 .project-card {
   border-bottom: 2px solid #111827;
   padding-bottom: 2rem;
+  scroll-margin-top: 2rem;
+}
+
+.project-media-wrap {
+  aspect-ratio: 16 / 9;
+  background: #f3f4f6;
+  border: 2px solid #111827;
+  margin-bottom: 1rem;
+  overflow: hidden;
+  position: relative;
+}
+
+.project-media {
+  display: block;
+  height: 100%;
+  object-fit: contain;
+  width: 100%;
+}
+
+.project-media-slide {
+  display: none;
+}
+
+.project-media-slide-active {
+  display: block;
+}
+
+.project-media-control {
+  align-items: center;
+  background: #ffffff;
+  border: 2px solid #111827;
+  display: inline-flex;
+  font-size: 1.5rem;
+  height: 2.5rem;
+  justify-content: center;
+  line-height: 1;
+  opacity: 0.9;
+  padding: 0;
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 2.5rem;
+}
+
+.project-media-control-prev {
+  left: 0.75rem;
+}
+
+.project-media-control-next {
+  right: 0.75rem;
+}
+
+.project-media-count {
+  background: #ffffff;
+  border: 2px solid #111827;
+  bottom: 0.75rem;
+  font-size: 0.75rem;
+  letter-spacing: 0.08em;
+  padding: 0.25rem 0.5rem;
+  position: absolute;
+  right: 0.75rem;
 }
 
 .project-card:last-child {
   border-bottom: 0;
   padding-bottom: 0;
+}
+
+.project-description {
+  display: grid;
+  gap: 0.85rem;
+}
+
+.project-description p {
+  margin: 0;
 }
 
 .project-tech {

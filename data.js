@@ -25,7 +25,7 @@ const main = {
           ]
         },
         {
-          period: '2025 - 2026',
+          period: '2025 - Current',
           title: 'Teacher',
           organization: 'SharkCoders',
           current: true,
@@ -48,7 +48,7 @@ const main = {
         {
           period: '2023',
           title: 'Software Engineering Intern',
-          organization: 'Industry Internship',
+          organization: 'Namecheap, Inc.',
           description: 'Developed backend services for internal business systems.',
           points: [
             'Built a RESTful API for back-office use and app integration.',
@@ -155,39 +155,79 @@ const main = {
   ],
   projects: [
     {
-      name: 'Project One',
-      description: 'A short summary of the problem this project solves and the result it delivers.',
-      stack: ['HTML', 'CSS', 'JavaScript'],
-      live: 'https://example.com',
-      repo: 'https://github.com/your-username/project-one'
+      name: "ToMatch - AI-Powered Search Engine",
+      description: "ToMatch was developed in the context of a challenge proposed by my supervisor at BAI Digital: a natural language query such as “I like to plant tomatoes” should be understood not literally, but as a search for homes with practical attributes like a garden or large balcony, good sun exposure, and other relevant conditions.\n\nThe solution combines an intelligent ingestion system, which enriches property data extracted, via scraping, from Imovirtual.com and the Idealista API, with a conversational real-estate search engine that uses LLMs, structured filters, and semantic search to understand user intent and deliver relevant results. It supports multi-turn refinement, hard filters such as budget, location, and property type, semantic matching for subjective preferences, ranked property results, readable summaries of active criteria and listing data enrichment through thumbnails.",
+      stack: ["TypeScript", "Node.js", "Express", "PostgreSql (pgvector)", "OpenAI API"],
+      media: [
+        {
+          type: "video",
+          src: "./media/tomatch-ai-powered-search-engine/tomatch-demo.mp4",
+          poster: "./media/tomatch-ai-powered-search-engine/tomatch-demo.webp",
+          speed: 1.5,
+          alt: "tomatch-demo",
+          loop: true
+        }
+      ]
     },
     {
-      name: 'Project Two',
-      description: 'A second featured project with a concise explanation focused on impact and implementation.',
-      stack: ['React', 'Tailwind', 'API'],
-      live: 'https://example.com',
-      repo: 'https://github.com/your-username/project-two'
+      name: "Java-- Compiler",
+      description: "Java-- compiler developed for FEUP Compilers, with Java implementation work around parsing, code generation, and low-level compiler tooling.",
+      stack: ["Java", "ANTLR", "Jasmin", "Shell"],
+      repo: "https://github.com/JaySuave/Java--Compiler"
     },
     {
-      name: 'Project Three',
-      description: 'Use this slot for another project you want recruiters or clients to notice first.',
-      stack: ['Node.js', 'Express', 'MongoDB'],
-      live: 'https://example.com',
-      repo: 'https://github.com/your-username/project-three'
+      name: "Cogito Game",
+      description: "Puzzle game built in Python and Pygame with player controls plus AI solvers using BFS, DFS, iterative deepening, uniform-cost search, greedy search, and A*.",
+      stack: ["Python", "Pygame", "Search Algorithms", "A*"],
+      repo: "https://github.com/JaySuave/IA-Proj"
     },
     {
-      name: 'Project Four',
-      description: 'Add another project here for the full archive page when you want to show more than the featured three.',
-      stack: ['Next.js', 'TypeScript', 'PostgreSQL'],
-      live: 'https://example.com',
-      repo: 'https://github.com/your-username/project-four'
+      name: "PRI24-25",
+      description: "Information processing and retrieval project focused on Python-based search and retrieval workflows, with supporting web and build assets.",
+      stack: ["Python", "Makefile", "HTML", "CSS"],
+      repo: "https://github.com/JaySuave/PRI24-25"
     },
     {
-      name: 'Project Five',
-      description: 'Keep this list growing and the landing page will still stay focused on your top three pieces of work.',
-      stack: ['Python', 'Flask', 'Docker'],
-      live: 'https://example.com',
-      repo: 'https://github.com/your-username/project-five'
+      name: "Tetris",
+      description: "Terminal-style Tetris game in Java using Lanterna, built with MVC structure, gameplay states, collision detection, difficulty controls, and tests.",
+      stack: ["Java", "Groovy", "Lanterna", "JUnit"],
+      repo: "https://github.com/JaySuave/Tetris"
+    },
+    {
+      name: "Claustro",
+      description: "Text-based implementation of the Claustro abstract board game, including board generation, move validation, capture rules, and computer players.",
+      stack: ["Prolog", "SICStus Prolog", "Game AI"],
+      repo: "https://github.com/JaySuave/PFL-TP1"
+    },
+    {
+      name: "Transpiler",
+      description: "Source-to-source compiler and low-level assembler written in Haskell, with lexer, parser, AST construction, and stack-machine execution.",
+      stack: ["Haskell", "Parser", "Compiler", "Assembler"],
+      repo: "https://github.com/JaySuave/PFL-TP2"
+    },
+    {
+      name: "DA_PROJ",
+      description: "Algorithm design project centered on graph structures and C++ problem solving, with generated documentation and CMake build setup.",
+      stack: ["C++", "CMake", "HTML", "TeX"],
+      repo: "https://github.com/JaySuave/DA_PROJ"
+    },
+    {
+      name: "RCOM24-25",
+      description: "Computer networks project implementing a serial port protocol with link-layer and application-layer logic, virtual cable testing, and file transfer checks.",
+      stack: ["C", "Makefile", "Serial Protocols"],
+      repo: "https://github.com/JaySuave/RCOM24-25"
+    },
+    {
+      name: "PROJECT_PROG",
+      description: "Image processing project for representing and manipulating RGB images with 8-bit channels, built with C and C++ components.",
+      stack: ["C", "C++", "Makefile"],
+      repo: "https://github.com/JaySuave/PROJECT_PROG"
+    },
+    {
+      name: "Personal Portfolio",
+      description: "This personal website, built as a lightweight static portfolio with project, about, timeline, and contact sections.",
+      stack: ["JavaScript", "HTML", "CSS"],
+      repo: "https://github.com/JaySuave/JaySuave.github.io"
     }
   ]
 };

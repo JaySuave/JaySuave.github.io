@@ -1,0 +1,754 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Project Manager</title>
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      color: #111827;
+      font-family: Arial, sans-serif;
+      margin: 0;
+    }
+
+    main {
+      display: grid;
+      grid-template-columns: minmax(260px, 360px) 1fr;
+      min-height: 100vh;
+    }
+
+    aside {
+      border-right: 2px solid #111827;
+      padding: 1rem;
+    }
+
+    section {
+      padding: 1rem;
+    }
+
+    h1,
+    h2 {
+      margin: 0 0 1rem;
+    }
+
+    label {
+      display: grid;
+      font-size: 0.8rem;
+      font-weight: 700;
+      gap: 0.4rem;
+      letter-spacing: 0.04em;
+      margin-bottom: 1rem;
+      text-transform: uppercase;
+    }
+
+    input,
+    textarea,
+    select,
+    button {
+      border: 2px solid #111827;
+      color: #111827;
+      font: inherit;
+      padding: 0.7rem;
+    }
+
+    textarea {
+      min-height: 8rem;
+      resize: vertical;
+    }
+
+    button {
+      background: #ffffff;
+      cursor: pointer;
+      font-size: 0.8rem;
+      font-weight: 700;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+    }
+
+    button:hover,
+    .active {
+      background: #111827;
+      color: #ffffff;
+    }
+
+    .project-list {
+      display: grid;
+      gap: 0.5rem;
+    }
+
+    .project-list button {
+      text-align: left;
+      text-transform: none;
+    }
+
+    .form-grid {
+      display: grid;
+      gap: 1rem;
+      max-width: 780px;
+    }
+
+    .row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+    }
+
+    .row > * {
+      flex: 1;
+      min-width: 180px;
+    }
+
+    .stack-list,
+    .media-list {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      margin-bottom: 1rem;
+    }
+
+    .stack-item,
+    .media-item {
+      align-items: center;
+      border: 1px solid #111827;
+      display: inline-flex;
+      gap: 0.5rem;
+      padding: 0.3rem 0.5rem;
+    }
+
+    .media-list {
+      display: grid;
+    }
+
+    .media-item {
+      align-items: stretch;
+      justify-content: space-between;
+    }
+
+    .media-summary {
+      display: grid;
+      gap: 0.2rem;
+      min-width: 0;
+    }
+
+    .media-summary span {
+      overflow-wrap: anywhere;
+    }
+
+    .media-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.35rem;
+    }
+
+    .stack-item button,
+    .media-item button {
+      border: 0;
+      padding: 0.1rem 0.3rem;
+    }
+
+    .actions {
+      border-top: 2px solid #111827;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.75rem;
+      margin-top: 1rem;
+      padding-top: 1rem;
+    }
+
+    .danger {
+      border-color: #b91c1c;
+      color: #b91c1c;
+    }
+
+    .status {
+      color: #280bc8;
+      min-height: 1.5rem;
+    }
+
+    @media (max-width: 800px) {
+      main {
+        grid-template-columns: 1fr;
+      }
+
+      aside {
+        border-bottom: 2px solid #111827;
+        border-right: 0;
+      }
+    }
+  </style>
+</head>
+<body>
+  <main>
+    <aside>
+      <h1>Projects</h1>
+      <div class="row">
+        <button id="new-project" type="button">New Project</button>
+        <button id="save-all" type="button">Save</button>
+      </div>
+      <p id="status" class="status"></p>
+      <div id="project-list" class="project-list"></div>
+    </aside>
+
+    <section>
+      <h2 id="form-title">New Project</h2>
+      <form id="project-form" class="form-grid">
+        <label>
+          Name
+          <input id="name" type="text" required>
+        </label>
+
+        <label>
+          Description
+          <textarea id="description" required></textarea>
+        </label>
+
+        <label>
+          Repository Link
+          <input id="repo" type="url" placeholder="https://github.com/...">
+        </label>
+
+        <div>
+          <label>
+            Stack Item
+            <span class="row">
+              <input id="stack-input" type="text" placeholder="TypeScript">
+              <button id="add-stack" type="button">Add Stack</button>
+            </span>
+          </label>
+          <div id="stack-list" class="stack-list"></div>
+        </div>
+
+        <div>
+          <h2>Media</h2>
+          <div id="media-list" class="media-list"></div>
+
+          <div class="row">
+            <label>
+              Media Type
+              <select id="media-type">
+                <option value="image">Image</option>
+                <option value="video">Video</option>
+              </select>
+            </label>
+
+            <label>
+              Media Alt Text
+              <input id="media-alt" type="text">
+            </label>
+          </div>
+
+          <label>
+            Media File Name
+            <input id="media-name" type="text" placeholder="main-demo">
+          </label>
+
+          <label>
+            Media File
+            <input id="media-file" type="file" accept="image/webp,image/png,image/jpeg,video/mp4">
+          </label>
+
+          <div class="row">
+            <label>
+              Video Speed
+              <select id="video-speed">
+                <option value="1">1x</option>
+                <option value="1.25">1.25x</option>
+                <option value="1.5">1.5x</option>
+                <option value="2">2x</option>
+                <option value="3">3x</option>
+              </select>
+            </label>
+
+            <label>
+              Loop Video
+              <input id="media-loop" type="checkbox" checked>
+            </label>
+          </div>
+
+          <button id="add-media" type="button">Add Media</button>
+        </div>
+
+        <div class="actions">
+          <button type="submit">Apply To List</button>
+          <button id="move-up" type="button">Move Up</button>
+          <button id="move-down" type="button">Move Down</button>
+          <button id="delete-project" class="danger" type="button">Delete</button>
+        </div>
+      </form>
+    </section>
+  </main>
+
+  <script>
+    const state = {
+      projects: [],
+      selected: -1,
+      stack: [],
+      media: []
+    };
+    const debugEnabled = new URLSearchParams(window.location.search).has('debug');
+
+    const debug = (...args) => {
+      if (debugEnabled) {
+        console.log('[project-manager]', ...args);
+      }
+    };
+
+    const els = {
+      list: document.querySelector('#project-list'),
+      status: document.querySelector('#status'),
+      title: document.querySelector('#form-title'),
+      form: document.querySelector('#project-form'),
+      name: document.querySelector('#name'),
+      description: document.querySelector('#description'),
+      repo: document.querySelector('#repo'),
+      stackInput: document.querySelector('#stack-input'),
+      stackList: document.querySelector('#stack-list'),
+      mediaType: document.querySelector('#media-type'),
+      mediaAlt: document.querySelector('#media-alt'),
+      mediaName: document.querySelector('#media-name'),
+      mediaFile: document.querySelector('#media-file'),
+      videoSpeed: document.querySelector('#video-speed'),
+      mediaLoop: document.querySelector('#media-loop'),
+      mediaList: document.querySelector('#media-list')
+    };
+
+    const setStatus = message => {
+      els.status.textContent = message;
+    };
+
+    const emptyProject = () => ({
+      name: '',
+      description: '',
+      stack: [],
+      repo: '',
+      media: []
+    });
+
+    const normalizeMedia = media => {
+      if (Array.isArray(media)) {
+        return media.filter(item => item && item.src);
+      }
+
+      if (media && media.src) {
+        return [media];
+      }
+
+      return [];
+    };
+
+    const basename = filePath => {
+      const lastPart = filePath.split('/').pop() || '';
+      return lastPart.replace(/\.[^.]+$/, '');
+    };
+
+    const uploadFile = async file => {
+      if (!file) {
+        debug('uploadFile:skip:no-file');
+        return null;
+      }
+
+      const data = new FormData();
+      data.append('file', file);
+      data.append('projectName', els.name.value.trim());
+      data.append('mediaName', els.mediaName.value.trim());
+      data.append('mediaType', els.mediaType.value);
+      data.append('videoSpeed', els.videoSpeed.value);
+
+      debug('uploadFile:start', {
+        projectName: els.name.value.trim(),
+        mediaName: els.mediaName.value.trim(),
+        mediaType: els.mediaType.value,
+        videoSpeed: els.videoSpeed.value,
+        fileName: file.name,
+        fileSize: file.size
+      });
+
+      const response = await fetch('/api/media', {
+        method: 'POST',
+        body: data
+      });
+
+      const result = await response.json();
+      debug('uploadFile:response', {
+        ok: response.ok,
+        status: response.status,
+        result
+      });
+
+      if (!response.ok) {
+        throw new Error(result.error || 'Upload failed');
+      }
+
+      return result.media;
+    };
+
+    const renderList = () => {
+      els.list.innerHTML = state.projects
+        .map(
+          (project, index) =>
+            `<button type="button" class="${index === state.selected ? 'active' : ''}" data-index="${index}">${project.name || 'Untitled project'}</button>`
+        )
+        .join('');
+    };
+
+    const renderStack = () => {
+      els.stackList.innerHTML = state.stack
+        .map(
+          (item, index) =>
+            `<span class="stack-item">${item}<button type="button" data-stack-index="${index}" aria-label="Remove ${item}">x</button></span>`
+        )
+        .join('');
+    };
+
+    const renderMedia = () => {
+      els.mediaList.innerHTML = state.media
+        .map(
+          (item, index) => `
+            <div class="media-item">
+              <div class="media-summary">
+                <strong>${index + 1}. ${item.type || 'image'}</strong>
+                <span>${item.src || ''}</span>
+                ${item.poster ? `<span>Poster: ${item.poster}</span>` : ''}
+                ${item.type === 'video' && item.speed ? `<span>Speed: ${item.speed}x</span>` : ''}
+                ${item.type === 'video' ? `<span>Loop: ${item.loop === false ? 'No' : 'Yes'}</span>` : ''}
+                ${item.alt ? `<span>${item.alt}</span>` : ''}
+              </div>
+              <div class="media-actions">
+                <button type="button" data-media-action="up" data-media-index="${index}" aria-label="Move media up">Up</button>
+                <button type="button" data-media-action="down" data-media-index="${index}" aria-label="Move media down">Down</button>
+                <button type="button" data-media-action="edit" data-media-index="${index}" aria-label="Edit media">Edit</button>
+                <button type="button" data-media-action="remove" data-media-index="${index}" aria-label="Remove media">Remove</button>
+              </div>
+            </div>
+          `
+        )
+        .join('');
+    };
+
+    const clearMediaInputs = () => {
+      els.mediaType.value = 'image';
+      els.mediaAlt.value = '';
+      els.mediaName.value = '';
+      els.mediaFile.value = '';
+      els.videoSpeed.value = '1';
+      els.mediaLoop.checked = true;
+      delete els.mediaList.dataset.editingIndex;
+      document.querySelector('#add-media').textContent = 'Add Media';
+    };
+
+    const loadForm = index => {
+      state.selected = index;
+      const project = index >= 0 ? state.projects[index] : emptyProject();
+      state.stack = [...(project.stack || [])];
+      state.media = normalizeMedia(project.media);
+      debug('loadForm', {
+        index,
+        projectName: project.name,
+        media: state.media
+      });
+
+      els.title.textContent = index >= 0 ? `Edit ${project.name || 'Project'}` : 'New Project';
+      els.name.value = project.name || '';
+      els.description.value = project.description || '';
+      els.repo.value = project.repo || '';
+
+      clearMediaInputs();
+      renderStack();
+      renderMedia();
+      renderList();
+    };
+
+    const projectFromForm = () => {
+      const project = {
+        name: els.name.value.trim(),
+        description: els.description.value.trim(),
+        stack: state.stack,
+        repo: els.repo.value.trim()
+      };
+
+      if (state.media.length) {
+        project.media = state.media;
+      }
+
+      debug('projectFromForm', {
+        selected: state.selected,
+        projectName: project.name,
+        media: project.media || []
+      });
+
+      return project;
+    };
+
+    const syncSelectedProject = () => {
+      if (state.selected < 0) {
+        return;
+      }
+
+      state.projects[state.selected] = projectFromForm();
+      debug('syncSelectedProject', {
+        selected: state.selected,
+        project: state.projects[state.selected]
+      });
+    };
+
+    const deleteMediaFile = async media => {
+      const response = await fetch('/api/media', {
+        method: 'DELETE',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ media })
+      });
+      const result = await response.json();
+      debug('deleteMediaFile:response', {
+        ok: response.ok,
+        status: response.status,
+        media,
+        result
+      });
+
+      if (!response.ok) {
+        throw new Error(result.error || 'Media file delete failed');
+      }
+    };
+
+    const addMediaFromForm = async () => {
+      const editingIndex = els.mediaList.dataset.editingIndex;
+      const existingMedia = editingIndex !== undefined ? state.media[Number(editingIndex)] : null;
+      debug('addMedia:start', {
+        editingIndex,
+        existingMedia,
+        before: [...state.media]
+      });
+      const uploadedMedia = await uploadFile(els.mediaFile.files[0]);
+
+      if (!uploadedMedia && !existingMedia) {
+        throw new Error('Choose a media file first');
+      }
+
+      const media = {
+        ...(uploadedMedia || existingMedia),
+        alt: els.mediaAlt.value.trim()
+      };
+
+      if (media.type === 'video') {
+        media.loop = els.mediaLoop.checked;
+        media.speed = Number(els.videoSpeed.value);
+      }
+
+      if (editingIndex !== undefined) {
+        state.media[Number(editingIndex)] = media;
+      } else {
+        state.media.push(media);
+      }
+
+      debug('addMedia:done', {
+        uploadedMedia,
+        media,
+        after: [...state.media]
+      });
+
+      syncSelectedProject();
+      clearMediaInputs();
+      renderMedia();
+      setStatus('Media changed. Click Save to update data.js.');
+    };
+
+    const applyForm = async () => {
+      const project = projectFromForm();
+
+      if (state.selected >= 0) {
+        state.projects[state.selected] = project;
+      } else {
+        state.projects.unshift(project);
+        state.selected = 0;
+      }
+
+      debug('applyForm:done', {
+        selected: state.selected,
+        project: state.projects[state.selected]
+      });
+      setStatus('Applied locally. Click Save to update data.js.');
+      renderList();
+    };
+
+    const saveAll = async () => {
+      const response = await fetch('/api/projects', {
+        method: 'PUT',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ projects: state.projects })
+      });
+
+      const result = await response.json();
+      debug('saveAll:response', {
+        ok: response.ok,
+        status: response.status,
+        result,
+        mediaByProject: state.projects.map(project => ({
+          name: project.name,
+          media: project.media || []
+        }))
+      });
+
+      if (!response.ok) {
+        throw new Error(result.error || 'Save failed');
+      }
+
+      setStatus('Saved data.js.');
+    };
+
+    const moveSelected = offset => {
+      const next = state.selected + offset;
+
+      if (state.selected < 0 || next < 0 || next >= state.projects.length) {
+        return;
+      }
+
+      const current = state.projects[state.selected];
+      state.projects[state.selected] = state.projects[next];
+      state.projects[next] = current;
+      loadForm(next);
+      setStatus('Order changed. Click Save to update data.js.');
+    };
+
+    els.list.addEventListener('click', event => {
+      const button = event.target.closest('button[data-index]');
+
+      if (button) {
+        loadForm(Number(button.dataset.index));
+      }
+    });
+
+    document.querySelector('#new-project').addEventListener('click', () => loadForm(-1));
+    document.querySelector('#save-all').addEventListener('click', () => saveAll().catch(error => setStatus(error.message)));
+    document.querySelector('#move-up').addEventListener('click', () => moveSelected(-1));
+    document.querySelector('#move-down').addEventListener('click', () => moveSelected(1));
+    document.querySelector('#add-media').addEventListener('click', () => {
+      addMediaFromForm().catch(error => setStatus(error.message));
+    });
+
+    document.querySelector('#delete-project').addEventListener('click', () => {
+      if (state.selected < 0) {
+        return;
+      }
+
+      state.projects.splice(state.selected, 1);
+      loadForm(Math.min(state.selected, state.projects.length - 1));
+      setStatus('Deleted locally. Click Save to update data.js.');
+    });
+
+    document.querySelector('#add-stack').addEventListener('click', () => {
+      const item = els.stackInput.value.trim();
+
+      if (item) {
+        state.stack.push(item);
+        els.stackInput.value = '';
+        renderStack();
+      }
+    });
+
+    els.stackList.addEventListener('click', event => {
+      const button = event.target.closest('button[data-stack-index]');
+
+      if (button) {
+        state.stack.splice(Number(button.dataset.stackIndex), 1);
+        renderStack();
+      }
+    });
+
+    els.mediaList.addEventListener('click', async event => {
+      const button = event.target.closest('button[data-media-action]');
+
+      if (!button) {
+        return;
+      }
+
+      const index = Number(button.dataset.mediaIndex);
+      const action = button.dataset.mediaAction;
+
+      if (action === 'remove') {
+        const media = state.media[index];
+        debug('mediaAction:remove', {
+          index,
+          item: media,
+          before: [...state.media]
+        });
+        state.media.splice(index, 1);
+        syncSelectedProject();
+
+        try {
+          await deleteMediaFile(media);
+        } catch (error) {
+          setStatus(error.message);
+          debug('mediaAction:remove:file-delete-error', error.message);
+        }
+      }
+
+      if (action === 'up' && index > 0) {
+        debug('mediaAction:up', {
+          index,
+          before: [...state.media]
+        });
+        const current = state.media[index];
+        state.media[index] = state.media[index - 1];
+        state.media[index - 1] = current;
+        syncSelectedProject();
+      }
+
+      if (action === 'down' && index < state.media.length - 1) {
+        debug('mediaAction:down', {
+          index,
+          before: [...state.media]
+        });
+        const current = state.media[index];
+        state.media[index] = state.media[index + 1];
+        state.media[index + 1] = current;
+        syncSelectedProject();
+      }
+
+      if (action === 'edit') {
+        const media = state.media[index];
+        debug('mediaAction:edit', { index, media });
+        els.mediaType.value = media.type || 'image';
+        els.mediaAlt.value = media.alt || '';
+        els.mediaName.value = basename(media.src || '');
+        els.videoSpeed.value = String(media.speed || 1);
+        els.mediaLoop.checked = media.loop !== false;
+        els.mediaFile.value = '';
+        els.mediaList.dataset.editingIndex = String(index);
+        document.querySelector('#add-media').textContent = 'Update Media';
+        return;
+      }
+
+      renderMedia();
+      debug('mediaAction:done', {
+        action,
+        after: [...state.media]
+      });
+      setStatus('Media changed. Click Save to update data.js.');
+    });
+
+    els.form.addEventListener('submit', event => {
+      event.preventDefault();
+      applyForm().catch(error => setStatus(error.message));
+    });
+
+    fetch('/api/projects')
+      .then(response => response.json())
+      .then(data => {
+        state.projects = data.projects || [];
+        debug('initialProjects', {
+          count: state.projects.length,
+          mediaByProject: state.projects.map(project => ({
+            name: project.name,
+            media: project.media || []
+          }))
+        });
+        loadForm(state.projects.length ? 0 : -1);
+      })
+      .catch(error => setStatus(error.message));
+  </script>
+</body>
+</html>

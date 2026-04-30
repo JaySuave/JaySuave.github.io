@@ -62,15 +62,132 @@ const getLinks = links =>
 const getProjectLinks = project => {
   const links = [];
 
-  if (project.live) {
-    links.push(`<a href="${project.live}" target="_blank" rel="noreferrer">Live</a>`);
-  }
-
   if (project.repo) {
-    links.push(`<a href="${project.repo}" target="_blank" rel="noreferrer">Code</a>`);
+    links.push(`<a href="${project.repo}" target="_blank" rel="noreferrer">Repository</a>`);
   }
 
   return links.join(' - ');
+};
+
+const escapeHTML = value =>
+  String(value || '')
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;')
+    .replace(/'/g, '&#39;');
+
+const getProjectId = name =>
+  `project-${String(name || '')
+    .trim()
+    .toLowerCase()
+    .replace(/[^a-z0-9]+/g, '-')
+    .replace(/^-+|-+$/g, '')}`;
+
+const truncateText = (text, limit = 260) => {
+  const normalized = String(text || '').replace(/\s+/g, ' ').trim();
+
+  if (normalized.length <= limit) {
+    return normalized;
+  }
+
+  const truncated = normalized.slice(0, limit).trimEnd();
+  const lastSpace = truncated.lastIndexOf(' ');
+
+  return `${truncated.slice(0, lastSpace > 120 ? lastSpace : limit).trimEnd()}...`;
+};
+
+const getProjectDescription = (description, options = {}) => {
+  const text = options.isFeatured ? truncateText(description, options.excerptLength) : String(description || '');
+
+  return escapeHTML(text)
+    .split(/\n{2,}/)
+    .map(paragraph => paragraph.replace(/\n/g, '<br>'))
+    .map(paragraph => `<p>${paragraph}</p>`)
+    .join('');
+};
+
+const normalizeProjectMedia = media => {
+  if (Array.isArray(media)) {
+    return media.filter(item => item && item.src);
+  }
+
+  if (media && media.src) {
+    return [media];
+  }
+
+  return [];
+};
+
+const getProjectMediaItem = (media, slideClass = '') => {
+  const alt = media.alt || '';
+  const hideOnError = "this.closest('.project-media-slide').hidden = true";
+
+  if (media.type === 'video') {
+    const shouldLoop = media.loop !== false;
+
+    return `
+      <div class="project-media-slide ${slideClass}">
+        <video
+          class="project-media"
+          src="${media.src}"
+          ${media.poster ? `poster="${media.poster}"` : ''}
+          aria-label="${alt}"
+          muted
+          ${shouldLoop ? 'loop' : ''}
+          playsinline
+          disablepictureinpicture
+          disableremoteplayback
+          preload="metadata"
+          controls
+          controlslist="nofullscreen nodownload noremoteplayback"
+          onerror="${hideOnError}"
+        ></video>
+      </div>
+    `;
+  }
+
+  return `
+    <div class="project-media-slide ${slideClass}">
+      <img
+        class="project-media"
+        src="${media.src}"
+        alt="${alt}"
+        loading="lazy"
+        decoding="async"
+        onerror="${hideOnError}"
+      >
+    </div>
+  `;
+};
+
+const getProjectMedia = media => {
+  const items = normalizeProjectMedia(media);
+
+  if (!items.length) {
+    return '';
+  }
+
+  if (items.length === 1) {
+    return `
+      <div class="project-media-wrap">
+        ${getProjectMediaItem(items[0], 'project-media-slide-active')}
+      </div>
+    `;
+  }
+
+  return `
+    <div class="project-media-wrap project-media-carousel" data-current="0">
+      <div class="project-media-track">
+        ${items.map((item, index) => getProjectMediaItem(item, index === 0 ? 'project-media-slide-active' : '')).join('')}
+      </div>
+      <button class="project-media-control project-media-control-prev" type="button" data-direction="-1" aria-label="Previous media">&#8249;</button>
+      <button class="project-media-control project-media-control-next" type="button" data-direction="1" aria-label="Next media">&#8250;</button>
+      <div class="project-media-count">
+        <span class="project-media-current">1</span> / ${items.length}
+      </div>
+    </div>
+  `;
 };
 
 const getContacts = contacts =>
@@ -149,17 +266,27 @@ const getTimelineGroups = groups =>
     .join('\n');
 
 const getProjects = projects =>
+  getProjectsWithOptions(projects);
+
+const getProjectsWithOptions = (projects, options = {}) =>
   projects
     .map(
-      ({ name, description, stack = [], live, repo }) => `
-        <article class="project-card">
-          <h3 class="text-3xl">${name}</h3>
-          <p class="text-base my-4">${description}</p>
+      ({ name, description, stack = [], repo, media }) => `
+        <article class="project-card" id="${getProjectId(name)}">
+          ${getProjectMedia(media)}
+          <h3 class="text-3xl">${escapeHTML(name)}</h3>
+          <div class="project-description text-base my-4">
+            ${getProjectDescription(description, options)}
+          </div>
           <div class="project-tech my-4">
-            ${stack.map(item => `<span>${item}</span>`).join('')}
+            ${stack.map(item => `<span>${escapeHTML(item)}</span>`).join('')}
           </div>
           <div class="project-links text-sm">
-            ${getProjectLinks({ live, repo })}
+            ${
+              options.isFeatured
+                ? `<a href="./projects.html#${getProjectId(name)}">View Project</a>${repo ? ' - ' : ''}`
+                : ''
+            }${getProjectLinks({ repo })}
           </div>
         </article>
       `
@@ -206,5 +333,36 @@ assignDOM(dom.about.text(), main.aboutShort || '');
 assignDOM(dom.about.page(), getAboutPage(main.aboutLong || []));
 assignDOM(dom.about.timeline(), getTimelineGroups(main.timelineSections || []));
 assignDOM(dom.contacts.list(), getContacts(main.contacts || []));
-assignDOM(dom.projects.featured(), getProjects((main.projects || []).slice(0, 3)));
-assignDOM(allProjectsList, getProjects(main.projects || []));
+assignDOM(dom.projects.featured(), getProjectsWithOptions((main.projects || []).slice(0, 3), { isFeatured: true, excerptLength: 260 }));
+assignDOM(allProjectsList, getProjectsWithOptions(main.projects || []));
+
+document.addEventListener('click', event => {
+  const control = event.target.closest('.project-media-control');
+
+  if (!control) {
+    return;
+  }
+
+  const carousel = control.closest('.project-media-carousel');
+  const slides = Array.from(carousel.querySelectorAll('.project-media-slide:not([hidden])'));
+
+  if (!slides.length) {
+    return;
+  }
+
+  const activeIndex = slides.findIndex(slide => slide.classList.contains('project-media-slide-active'));
+  const current = activeIndex === -1 ? 0 : activeIndex;
+  const direction = Number(control.dataset.direction || 1);
+  const next = (current + direction + slides.length) % slides.length;
+
+  slides[current].classList.remove('project-media-slide-active');
+  slides[current].querySelectorAll('video').forEach(video => video.pause());
+  slides[next].classList.add('project-media-slide-active');
+  carousel.dataset.current = String(next);
+
+  const currentLabel = carousel.querySelector('.project-media-current');
+
+  if (currentLabel) {
+    currentLabel.textContent = String(next + 1);
+  }
+});
