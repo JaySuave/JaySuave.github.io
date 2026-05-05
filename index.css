@@ -68,23 +68,29 @@ a:hover {
 }
 
 .project-media-wrap {
-  aspect-ratio: 16 / 9;
   background: #f3f4f6;
   border: 2px solid #111827;
   margin-bottom: 1rem;
-  overflow: hidden;
+  overflow: visible;
   position: relative;
 }
 
 .project-media {
+  background: #000000;
   display: block;
-  height: 100%;
+  height: auto;
   object-fit: contain;
+  object-position: center;
   width: 100%;
 }
 
+.project-media-track,
 .project-media-slide {
   display: none;
+}
+
+.project-media-track {
+  display: block;
 }
 
 .project-media-slide-active {
@@ -106,6 +112,20 @@ a:hover {
   top: 50%;
   transform: translateY(-50%);
   width: 2.5rem;
+}
+
+.project-media-carousel .project-media-control,
+.project-media-carousel .project-media-count {
+  opacity: 0.35;
+  pointer-events: auto;
+  transition: opacity 0.2s ease;
+}
+
+.project-media-carousel.project-media-controls-visible .project-media-control,
+.project-media-carousel.project-media-controls-visible .project-media-count,
+.project-media-carousel:focus-within .project-media-control,
+.project-media-carousel:focus-within .project-media-count {
+  opacity: 0.9;
 }
 
 .project-media-control-prev {
