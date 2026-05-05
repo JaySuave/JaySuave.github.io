@@ -138,8 +138,8 @@ const getProjectMediaItem = (media, slideClass = '') => {
           playsinline
           disablepictureinpicture
           disableremoteplayback
+          autoplay
           preload="metadata"
-          controls
           controlslist="nofullscreen nodownload noremoteplayback"
           onerror="${hideOnError}"
         ></video>
@@ -335,6 +335,44 @@ assignDOM(dom.about.timeline(), getTimelineGroups(main.timelineSections || []));
 assignDOM(dom.contacts.list(), getContacts(main.contacts || []));
 assignDOM(dom.projects.featured(), getProjectsWithOptions((main.projects || []).slice(0, 3), { isFeatured: true, excerptLength: 260 }));
 assignDOM(allProjectsList, getProjectsWithOptions(main.projects || []));
+
+const mediaControlTimers = new WeakMap();
+
+const hideProjectMediaControls = carousel => {
+  window.clearTimeout(mediaControlTimers.get(carousel));
+  mediaControlTimers.delete(carousel);
+  carousel.classList.remove('project-media-controls-visible');
+};
+
+const showProjectMediaControls = carousel => {
+  window.clearTimeout(mediaControlTimers.get(carousel));
+  carousel.classList.add('project-media-controls-visible');
+  mediaControlTimers.set(
+    carousel,
+    window.setTimeout(() => {
+      carousel.classList.remove('project-media-controls-visible');
+      mediaControlTimers.delete(carousel);
+    }, 900)
+  );
+};
+
+document.addEventListener('mousemove', event => {
+  const carousel = event.target.closest('.project-media-carousel');
+
+  if (carousel) {
+    showProjectMediaControls(carousel);
+  }
+});
+
+document.addEventListener('mouseout', event => {
+  const carousel = event.target.closest('.project-media-carousel');
+
+  if (!carousel || (event.relatedTarget && carousel.contains(event.relatedTarget))) {
+    return;
+  }
+
+  hideProjectMediaControls(carousel);
+});
 
 document.addEventListener('click', event => {
   const control = event.target.closest('.project-media-control');

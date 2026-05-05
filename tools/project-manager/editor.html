@@ -248,7 +248,7 @@
 
           <label>
             Media File
-            <input id="media-file" type="file" accept="image/webp,image/png,image/jpeg,video/mp4">
+            <input id="media-file" type="file" accept="image/webp,image/png,image/jpeg,video/*">
           </label>
 
           <div class="row">
@@ -484,11 +484,15 @@
     };
 
     const syncSelectedProject = () => {
+      const project = projectFromForm();
+
       if (state.selected < 0) {
-        return;
+        state.projects.unshift(project);
+        state.selected = 0;
+      } else {
+        state.projects[state.selected] = project;
       }
 
-      state.projects[state.selected] = projectFromForm();
       debug('syncSelectedProject', {
         selected: state.selected,
         project: state.projects[state.selected]
@@ -511,6 +515,44 @@
 
       if (!response.ok) {
         throw new Error(result.error || 'Media file delete failed');
+      }
+    };
+
+    const saveAll = async ({ syncForm = true } = {}) => {
+      if (syncForm) {
+        syncSelectedProject();
+        renderList();
+      }
+
+      const response = await fetch('/api/projects', {
+        method: 'PUT',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ projects: state.projects })
+      });
+
+      const result = await response.json();
+      debug('saveAll:response', {
+        ok: response.ok,
+        status: response.status,
+        result,
+        mediaByProject: state.projects.map(project => ({
+          name: project.name,
+          media: project.media || []
+        }))
+      });
+
+      if (!response.ok) {
+        throw new Error(result.error || 'Save failed');
+      }
+
+      setStatus('Saved data.js.');
+    };
+
+    const autosave = async message => {
+      await saveAll({ syncForm: false });
+
+      if (message) {
+        setStatus(message);
       }
     };
 
@@ -553,7 +595,7 @@
       syncSelectedProject();
       clearMediaInputs();
       renderMedia();
-      setStatus('Media changed. Click Save to update data.js.');
+      await autosave('Media changed and saved.');
     };
 
     const applyForm = async () => {
@@ -570,33 +612,8 @@
         selected: state.selected,
         project: state.projects[state.selected]
       });
-      setStatus('Applied locally. Click Save to update data.js.');
       renderList();
-    };
-
-    const saveAll = async () => {
-      const response = await fetch('/api/projects', {
-        method: 'PUT',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ projects: state.projects })
-      });
-
-      const result = await response.json();
-      debug('saveAll:response', {
-        ok: response.ok,
-        status: response.status,
-        result,
-        mediaByProject: state.projects.map(project => ({
-          name: project.name,
-          media: project.media || []
-        }))
-      });
-
-      if (!response.ok) {
-        throw new Error(result.error || 'Save failed');
-      }
-
-      setStatus('Saved data.js.');
+      await autosave('Project saved.');
     };
 
     const moveSelected = offset => {
@@ -610,7 +627,7 @@
       state.projects[state.selected] = state.projects[next];
       state.projects[next] = current;
       loadForm(next);
-      setStatus('Order changed. Click Save to update data.js.');
+      autosave('Project order changed and saved.').catch(error => setStatus(error.message));
     };
 
     els.list.addEventListener('click', event => {
@@ -636,7 +653,7 @@
 
       state.projects.splice(state.selected, 1);
       loadForm(Math.min(state.selected, state.projects.length - 1));
-      setStatus('Deleted locally. Click Save to update data.js.');
+      autosave('Project deleted and saved.').catch(error => setStatus(error.message));
     });
 
     document.querySelector('#add-stack').addEventListener('click', () => {
@@ -646,6 +663,8 @@
         state.stack.push(item);
         els.stackInput.value = '';
         renderStack();
+        syncSelectedProject();
+        autosave('Stack changed and saved.').catch(error => setStatus(error.message));
       }
     });
 
@@ -655,6 +674,8 @@
       if (button) {
         state.stack.splice(Number(button.dataset.stackIndex), 1);
         renderStack();
+        syncSelectedProject();
+        autosave('Stack changed and saved.').catch(error => setStatus(error.message));
       }
     });
 
@@ -727,7 +748,7 @@
         action,
         after: [...state.media]
       });
-      setStatus('Media changed. Click Save to update data.js.');
+      autosave('Media changed and saved.').catch(error => setStatus(error.message));
     });
 
     els.form.addEventListener('submit', event => {

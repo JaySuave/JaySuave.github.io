@@ -152,7 +152,7 @@ const slugify = value =>
 
 const commandExists = async command => {
   try {
-    await run('command', ['-v', command], { shell: true });
+    await run('which', [command]);
     return true;
   } catch {
     return false;
