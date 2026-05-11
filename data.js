@@ -65,6 +65,7 @@ const main = {
           period: '2024 - 2026',
           title: 'Master’s in Computer Engineering',
           organization: 'University of Porto',
+          current: true,
           description: 'Currently deepening my technical background through advanced study and applied projects.'
         },
         {
@@ -156,7 +157,7 @@ const main = {
   projects: [
     {
       name: "ToMatch - AI-Powered Search Engine",
-      description: "ToMatch was developed in the context of a challenge proposed by my supervisor at BAI Digital: a natural language query such as “I like to plant tomatoes” should be understood not literally, but as a search for homes with practical attributes like a garden or large balcony, good sun exposure and other relevant conditions.\n\nThe solution combines an intelligent ingestion system, which enriches property data extracted, via scraping, from Imovirtual.com and the Idealista API, with a conversational real-estate search engine that uses LLMs, structured filters and semantic search to understand user intent and deliver relevant results. It supports multi-turn refinement, hard filters such as budget, location and property type, semantic matching for subjective preferences, ranked property results, readable summaries of active criteria and listing data enrichment through thumbnails.",
+      description: "ToMatch was developed in the context of a challenge proposed by my supervisor at BAI Digital: a natural language query such as “I like to plant tomatoes” should be understood not literally, but as a search for homes with practical attributes like a garden or large balcony, good sun exposure, and other relevant conditions.\n\nThe solution combines an intelligent ingestion system, which enriches property data extracted, via scraping, from Imovirtual.com and the Idealista API, with a conversational real-estate search engine that uses LLMs, structured filters, and semantic search to understand user intent and deliver relevant results. It supports multi-turn refinement, hard filters such as budget, location, and property type, semantic matching for subjective preferences, ranked property results, readable summaries of active criteria and listing data enrichment through thumbnails.",
       stack: ["TypeScript", "Node.js", "Express", "PostgreSql (pgvector)", "OpenAI API"],
       media: [
         {
@@ -171,7 +172,7 @@ const main = {
     },
     {
       name: "KeyBlitz - Digital Key Online Marketplace",
-      description: "KeyBlitz is an online marketplace for digital game keys, built as a full-stack Laravel application. It supports buyer, seller and admin workflows, including game browsing, cart and checkout, purchased key management, seller listings, reviews, wishlists, notifications, abuse reporting and administrative moderation.\n\nThe application uses PostgreSQL for structured marketplace data and transactional logic, Laravel for backend routing, authentication, controllers and Blade views and Bootstrap/CSS/JavaScript for the responsive frontend. The project is containerized with Docker for easier local setup and deployment.",
+      description: "KeyBlitz is an online marketplace for digital game keys, built as a full-stack Laravel application. It supports buyer, seller, and admin workflows, including game browsing, cart and checkout, purchased key management, seller listings, reviews, wishlists, notifications, abuse reporting, and administrative moderation.\n\nThe application uses PostgreSQL for structured marketplace data and transactional logic, Laravel for backend routing, authentication, controllers, and Blade views, and Bootstrap/CSS/JavaScript for the responsive frontend. The project is containerized with Docker for easier local setup and deployment.",
       stack: ["Laravel", "PostgreSQL", "Vite", "Docker", "Blade", "Git / Gitlab", "OpenAPI"],
       repo: "https://github.com/JaySuave/LBAW-25-26-KeyBlitz",
       media: [
@@ -192,7 +193,7 @@ const main = {
     },
     {
       name: "Java-- Compiler",
-      description: "Java-- Compiler is a Java-based compiler for Java-- / JMM, a Java-like subset language. It implements the full compilation pipeline: ANTLR parsing, AST construction, semantic analysis, OLLIR intermediate code generation, optimization passes and Jasmin/JVM backend generation.\n\nThe compiler supports core Java-like features such as imports, classes, methods, variables, arrays, conditionals, loops, arithmetic and boolean expressions, object creation, method calls and return statements. Before code generation, it performs semantic validation using a symbol table to catch issues such as invalid variable usage, type errors, incorrect assignments and invalid method calls.\n\nAfter validation, the compiler lowers the program into typed OLLIR code, applies optimizations such as constant folding and constant propagation and emits Jasmin code targeting the JVM.",
+      description: "Java-- Compiler is a Java-based compiler for Java-- / JMM, a Java-like subset language. It implements the full compilation pipeline: ANTLR parsing, AST construction, semantic analysis, OLLIR intermediate code generation, optimization passes, and Jasmin/JVM backend generation.\n\nThe compiler supports core Java-like features such as imports, classes, methods, variables, arrays, conditionals, loops, arithmetic and boolean expressions, object creation, method calls, and return statements. Before code generation, it performs semantic validation using a symbol table to catch issues such as invalid variable usage, type errors, incorrect assignments, and invalid method calls.\n\nAfter validation, the compiler lowers the program into typed OLLIR code, applies optimizations such as constant folding and constant propagation, and emits Jasmin code targeting the JVM.",
       stack: ["Java", "ANTLR", "Jasmin", "JUnit", "Gradle"],
       repo: "https://github.com/JaySuave/Java--Compiler",
       media: [
@@ -229,31 +230,91 @@ const main = {
       ]
     },
     {
-      name: "SGI Project - ThreeJS Scenes",
-      description: "Three.js computer graphics project featuring custom 3D scenes, a JSON scene graph renderer and an interactive hot-air-balloon racing game. It includes textured environments, lighting, cameras, shaders, animations, obstacles, power-ups, HUD systems and end-game visual effects.",
-      stack: ["JavaScript", "Three.js", "WebGL", "HTML", "CSS", "JSON", "GLSL"],
-      repo: "https://github.com/JaySuave/sgi-project",
+      name: "Prolog Claustro",
+      description: "Claustro is a text-based implementation of the abstract board game Claustro, developed in Prolog. The project models the full game loop, including dynamic board generation, turn handling, move validation, captures, win detection, and terminal-based board visualization.\n\nThe game supports multiple play modes, including Human vs Human, Human vs Computer, Computer vs Human, and Computer vs Computer. It also includes two AI difficulty levels: a random-move bot and a greedy bot that evaluates moves based on pawn distance to the objective. The implementation emphasizes declarative logic programming, recursive board processing, game-state representation, and rule-based decision making.",
+      stack: ["Prolog", "SICStus Prolog", "Game AI"],
+      repo: "https://github.com/JaySuave/PFL-TP1",
       media: [
         {
           type: "image",
-          src: "./media/sgi-project-threejs-scenes/sgi-1.webp",
-          alt: "Dune Drifters hot-air-balloon racing scene"
+          src: "./media/prolog-claustro/initial-state.webp",
+          alt: "initial-state"
         },
         {
           type: "image",
-          src: "./media/sgi-project-threejs-scenes/sgi-2.webp",
-          alt: "Porto scene rendered with the JSON scene graph"
+          src: "./media/prolog-claustro/intermediate-state.webp",
+          alt: "intermediate-state"
         },
         {
           type: "image",
-          src: "./media/sgi-project-threejs-scenes/sgi-3.webp",
-          alt: "Three.js festive night scene"
+          src: "./media/prolog-claustro/final-state.webp",
+          alt: "final-state"
+        }
+      ]
+    },
+    {
+      name: "Haskell Compiller",
+      description: "A Haskell-based mini compiler and stack-machine interpreter developed for FEUP’s Functional and Logic Programming course. The project implements a complete pipeline for a small imperative language: lexical analysis, parsing into an abstract syntax tree, compilation into low-level stack-machine instructions and execution through a custom interpreter.\n\nThe language supports integer arithmetic, boolean expressions, variable assignment, conditional branching, while loops, nested blocks, and runtime error handling. The implementation highlights functional programming techniques such as algebraic data types, pattern matching, recursion and basic compiler design.",
+      stack: ["Haskell", "Parser", "Compiler", "Assembler"],
+      repo: "https://github.com/JaySuave/PFL-TP2",
+      media: [
+        {
+          type: "image",
+          src: "./media/haskell-compiller/haskell-compiller-1.webp",
+          alt: "Haskell-compiller-1"
+        },
+        {
+          type: "image",
+          src: "./media/haskell-compiller/haskell2.webp",
+          alt: "haskell2"
+        },
+        {
+          type: "image",
+          src: "./media/haskell-compiller/haskell3.webp",
+          alt: "haskell3"
+        }
+      ]
+    },
+    {
+      name: "SecLens - AI Security Assistant",
+      description: "SecLens is an AI-powered security assistant for VS Code that helps developers find, understand, and fix vulnerabilities in Python code. \n\nThe extension runs static security scans with Bandit, enriches each finding with OpenAI-based analysis, and presents results directly inside the editor through diagnostics, hover tooltips, and an interactive sidebar dashboard.\n\n Users can review CWE references, severity, CIA impact, contextual explanations, and apply AI-generated smart fixes with one click.",
+      stack: ["Python", "Bandit", "VSCode API", "TypeScript", "Node.js"],
+      media: [
+        {
+          type: "image",
+          src: "./media/seclens-ai-security-assistant/seclens.webp",
+          alt: "seclens"
+        },
+        {
+          type: "video",
+          src: "./media/seclens-ai-security-assistant/seclens.mp4",
+          poster: "./media/seclens-ai-security-assistant/seclens.webp",
+          speed: 2,
+          alt: "seclens",
+          loop: true
+        }
+      ]
+    },
+    {
+      name: "Machine Learning NBA Playoff Prediction",
+      description: "Built a machine learning pipeline to predict which basketball teams would qualify for the playoffs using historical team, player, coach and awards data. The project included data cleaning, feature engineering, exploratory analysis, model comparison and final prediction generation.\n\nThe model combines player performance metrics, award-based boosts, and coach win-rate history into a team rating, then uses classification models such as Logistic Regression, Random Forest, Decision Tree and HistGradientBoosting to estimate playoff qualification. The final output ranks teams by playoff probability and selects the top 8 teams as predicted qualifiers.",
+      stack: ["Python", "Pandas", "scikit-learn", "matplotlib", "seaborn"],
+      media: [
+        {
+          type: "image",
+          src: "./media/machine-learning-nba-playoff-prediction/roc.webp",
+          alt: "roc"
+        },
+        {
+          type: "image",
+          src: "./media/machine-learning-nba-playoff-prediction/correlation.webp",
+          alt: "correlation"
         }
       ]
     },
     {
       name: "AI Cogito Game",
-      description: "Pygame puzzle game inspired by Cogito, featuring manual gameplay and an AI solver capable of solving board configurations using BFS, DFS, Iterative Deepening, Uniform Cost Search, Greedy Search and A*. Implemented state generation, board hashing, move-history tracking and heuristic evaluation with Manhattan Distance and Out-of-Place Cells to compare informed and uninformed search strategies.",
+      description: "Pygame puzzle game inspired by Cogito, featuring manual gameplay and an AI solver capable of solving board configurations using BFS, DFS, Iterative Deepening, Uniform Cost Search, Greedy Search, and A*. Implemented state generation, board hashing, move-history tracking, and heuristic evaluation with Manhattan Distance and Out-of-Place Cells to compare informed and uninformed search strategies.",
       stack: ["Python", "Pygame", "Search Algorithms"],
       repo: "https://github.com/JaySuave/IA-Proj",
       media: [
@@ -299,8 +360,87 @@ const main = {
       ]
     },
     {
+      name: "Death's Embrace - Godot RPG",
+      description: "You are a defeated villain seeking revenge on the king, from the kingdom you once conquered. Powerless and stripped from all your possessions, you start terrorizing the villagers that you once ruled. But once you reach the castle walls, something unexpected happens.\n\nDeath's Embrace is a 3D action game made in Godot where the player explores levels, fights enemies, collects souls and upgrades their character.\n\nThe game includes third-person movement, attacking, rolling, health management, enemy AI, ranged and melee enemies, boss fights, wave-based enemy spawning, scene transitions, dialogue, menus, game-over screen, sound effects, music and a soul-based upgrade system for health, damage, and resistance.",
+      stack: ["Godot", "GDScript", "FMOD", "3D Modelling & Animation"],
+      repo: "https://github.com/JaySuave/DDJD-FinalProject",
+      media: [
+        {
+          type: "image",
+          src: "./media/death-s-embrace/cover.webp",
+          alt: "cover"
+        },
+        {
+          type: "image",
+          src: "./media/death-s-embrace/deaths.webp",
+          alt: "deaths"
+        },
+        {
+          type: "image",
+          src: "./media/death-s-embrace/deaths1.webp",
+          alt: "deaths1"
+        },
+        {
+          type: "video",
+          src: "./media/death-s-embrace/deaths.mp4",
+          poster: "./media/death-s-embrace/deaths.webp",
+          speed: 1.5,
+          alt: "deaths",
+          loop: true
+        }
+      ]
+    },
+    {
+      name: "Student's Creed - Godot Platformer",
+      description: "Student's Creed is a thrilling 2D platformer where stealth meets wit. Step into the shoes of a daring student on a high-stakes mission: steal the final exam!  Navigate through halls patrolled by vigilant guards and security cameras. Strategically use the available boosts to dash past danger, knock-out foes and hide cleverly to remain unseen.  Do you have what it takes to ace this ultimate heist?",
+      stack: ["Godot", "GDScript"],
+      media: [
+        {
+          type: "image",
+          src: "./media/student-s-creed-godot-platformer/screed.webp",
+          alt: "screed"
+        },
+        {
+          type: "image",
+          src: "./media/student-s-creed-godot-platformer/screed1.webp",
+          alt: "screed1"
+        },
+        {
+          type: "video",
+          src: "./media/student-s-creed-godot-platformer/screed2.mp4",
+          poster: "./media/student-s-creed-godot-platformer/screed2.webp",
+          speed: 1.5,
+          alt: "screed2",
+          loop: true
+        }
+      ]
+    },
+    {
+      name: "SGI Project - ThreeJS Scenes",
+      description: "Three.js computer graphics project featuring custom 3D scenes, a JSON scene graph renderer, and an interactive hot-air-balloon racing game. It includes textured environments, lighting, cameras, shaders, animations, obstacles, power-ups, HUD systems, and end-game visual effects.",
+      stack: ["JavaScript", "Three.js", "WebGL", "HTML", "CSS", "JSON", "GLSL"],
+      repo: "https://github.com/JaySuave/sgi-project",
+      media: [
+        {
+          type: "image",
+          src: "./media/sgi-project-threejs-scenes/sgi-1.webp",
+          alt: "Dune Drifters hot-air-balloon racing scene"
+        },
+        {
+          type: "image",
+          src: "./media/sgi-project-threejs-scenes/sgi-2.webp",
+          alt: "Porto scene rendered with the JSON scene graph"
+        },
+        {
+          type: "image",
+          src: "./media/sgi-project-threejs-scenes/sgi-3.webp",
+          alt: "Three.js festive night scene"
+        }
+      ]
+    },
+    {
       name: "Mobile Apps Information Retrieval",
-      description: "Built an end-to-end search engine for Google Play apps using Apache Solr, Flask and semantic embeddings. The system processes app metadata and reviews, supports lexical and vector-based retrieval, applies query preprocessing and field boosting and evaluates ranking quality with TREC-style IR metrics.",
+      description: "Built an end-to-end search engine for Google Play apps using Apache Solr, Flask, and semantic embeddings. The system processes app metadata and reviews, supports lexical and vector-based retrieval, applies query preprocessing and field boosting, and evaluates ranking quality with TREC-style IR metrics.",
       stack: ["Apache Solr", "Docker", "SentenceTransformers", "spaCy", "NLTK", "BeautifulSoup"],
       repo: "https://github.com/JaySuave/PRI24-25",
       media: [
@@ -316,7 +456,7 @@ const main = {
     },
     {
       name: "Java Tetris",
-      description: "A terminal-based Tetris game built in Java using Gradle and the Lanterna text UI library. The project recreates the core Tetris gameplay loop, including random piece generation, movement, rotation, collision detection, line clearing, scoring, game-over handling and difficulty controls.\n\nThe codebase follows an MVC architecture, separating game state, rendering and input handling. It also applies design patterns such as State for piece behavior and Command for difficulty changes, making the implementation easier to extend and test.",
+      description: "A terminal-based Tetris game built in Java using Gradle and the Lanterna text UI library. The project recreates the core Tetris gameplay loop, including random piece generation, movement, rotation, collision detection, line clearing, scoring, game-over handling, and difficulty controls.\n\nThe codebase follows an MVC architecture, separating game state, rendering, and input handling. It also applies design patterns such as State for piece behavior and Command for difficulty changes, making the implementation easier to extend and test.",
       stack: ["Java", "Groovy", "Lanterna", "JUnit", "Spock"],
       repo: "https://github.com/JaySuave/Tetris",
       media: [
@@ -336,54 +476,8 @@ const main = {
       ]
     },
     {
-      name: "Prolog Claustro",
-      description: "Claustro is a text-based implementation of the abstract board game Claustro, developed in Prolog. The project models the full game loop, including dynamic board generation, turn handling, move validation, captures, win detection and terminal-based board visualization.\n\nThe game supports multiple play modes, including Human vs Human, Human vs Computer, Computer vs Human and Computer vs Computer. It also includes two AI difficulty levels: a random-move bot and a greedy bot that evaluates moves based on pawn distance to the objective. The implementation emphasizes declarative logic programming, recursive board processing, game-state representation and rule-based decision making.",
-      stack: ["Prolog", "SICStus Prolog", "Game AI"],
-      repo: "https://github.com/JaySuave/PFL-TP1",
-      media: [
-        {
-          type: "image",
-          src: "./media/prolog-claustro/initial-state.webp",
-          alt: "initial-state"
-        },
-        {
-          type: "image",
-          src: "./media/prolog-claustro/intermediate-state.webp",
-          alt: "intermediate-state"
-        },
-        {
-          type: "image",
-          src: "./media/prolog-claustro/final-state.webp",
-          alt: "final-state"
-        }
-      ]
-    },
-    {
-      name: "Haskell Compiller",
-      description: "A Haskell-based mini compiler and stack-machine interpreter developed for FEUP’s Functional and Logic Programming course. The project implements a complete pipeline for a small imperative language: lexical analysis, parsing into an abstract syntax tree, compilation into low-level stack-machine instructions and execution through a custom interpreter.\n\nThe language supports integer arithmetic, boolean expressions, variable assignment, conditional branching, while loops, nested blocks and runtime error handling. The implementation highlights functional programming techniques such as algebraic data types, pattern matching, recursion and basic compiler design.",
-      stack: ["Haskell", "Parser", "Compiler", "Assembler"],
-      repo: "https://github.com/JaySuave/PFL-TP2",
-      media: [
-        {
-          type: "image",
-          src: "./media/haskell-compiller/haskell-compiller-1.webp",
-          alt: "Haskell-compiller-1"
-        },
-        {
-          type: "image",
-          src: "./media/haskell-compiller/haskell2.webp",
-          alt: "haskell2"
-        },
-        {
-          type: "image",
-          src: "./media/haskell-compiller/haskell3.webp",
-          alt: "haskell3"
-        }
-      ]
-    },
-    {
       name: "C++ TSP Route Planner",
-      description: "C++ command-line application for solving delivery route optimization problems using graph algorithms. The project models shipping networks as weighted graphs and compares multiple Traveling Salesman Problem approaches, including exact backtracking, nearest-neighbour heuristics, MST-based triangular approximation and shortest-path support with Dijkstra for real-world graphs.",
+      description: "C++ command-line application for solving delivery route optimization problems using graph algorithms. The project models shipping networks as weighted graphs and compares multiple Traveling Salesman Problem approaches, including exact backtracking, nearest-neighbour heuristics, MST-based triangular approximation, and shortest-path support with Dijkstra for real-world graphs.",
       stack: ["C++", "CMake", "Clang++", "Doxygen"],
       repo: "https://github.com/JaySuave/DA_PROJ",
       media: [
@@ -417,7 +511,7 @@ const main = {
     },
     {
       name: "C++ Image Processing",
-      description: "A C++ image-processing tool that loads PNG and XPM2 images, applies scripted transformations and exports the processed results. The project implements core pixel-level operations including inversion, grayscale conversion, color replacement, region fill, cropping, mirroring, rotation, image composition and median filtering. It also includes a script runner and automated test suite that validates output images against expected results.",
+      description: "A C++ image-processing tool that loads PNG and XPM2 images, applies scripted transformations, and exports the processed results. The project implements core pixel-level operations including inversion, grayscale conversion, color replacement, region fill, cropping, mirroring, rotation, image composition, and median filtering. It also includes a script runner and automated test suite that validates output images against expected results.",
       stack: ["C++", "Makefile"],
       repo: "https://github.com/JaySuave/PROJECT_PROG",
       media: [
@@ -435,7 +529,7 @@ const main = {
     },
     {
       name: "Personal Portfolio",
-      description: "This personal website, built as a lightweight static portfolio with project, about, timeline and contact sections.",
+      description: "This personal website, built as a lightweight static portfolio with project, about, timeline, and contact sections.",
       stack: ["HTML", "CSS", "JavaScript"],
       repo: "https://github.com/JaySuave/JaySuave.github.io"
     }
