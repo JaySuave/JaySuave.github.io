@@ -279,6 +279,7 @@ const main = {
       name: "SecLens - AI Security Assistant",
       description: "SecLens is an AI-powered security assistant for VS Code that helps developers find, understand, and fix vulnerabilities in Python code. \n\nThe extension runs static security scans with Bandit, enriches each finding with OpenAI-based analysis, and presents results directly inside the editor through diagnostics, hover tooltips, and an interactive sidebar dashboard.\n\n Users can review CWE references, severity, CIA impact, contextual explanations, and apply AI-generated smart fixes with one click.",
       stack: ["Python", "Bandit", "VSCode API", "TypeScript", "Node.js"],
+      repo: "https://github.com/JaySuave/seclens",
       media: [
         {
           type: "image",
@@ -299,6 +300,7 @@ const main = {
       name: "Machine Learning NBA Playoff Prediction",
       description: "Built a machine learning pipeline to predict which basketball teams would qualify for the playoffs using historical team, player, coach and awards data. The project included data cleaning, feature engineering, exploratory analysis, model comparison and final prediction generation.\n\nThe model combines player performance metrics, award-based boosts, and coach win-rate history into a team rating, then uses classification models such as Logistic Regression, Random Forest, Decision Tree and HistGradientBoosting to estimate playoff qualification. The final output ranks teams by playoff probability and selects the top 8 teams as predicted qualifiers.",
       stack: ["Python", "Pandas", "scikit-learn", "matplotlib", "seaborn"],
+      repo: "https://github.com/JaySuave/machine-learning-nba-prediction",
       media: [
         {
           type: "image",
