@@ -114,7 +114,7 @@ const main = {
     {
       name: 'Email',
       iconName: 'mail-outline',
-      link: 'mailto:omelhor.ze@gmail.com?Subject=Hello'
+      link: 'mailto:up202004823@up.pt?Subject=Hello'
     },
     {
       name: 'WhatsApp',
@@ -124,7 +124,8 @@ const main = {
     {
       name: 'Chess.com',
       iconImg: './imgs/chess.svg',
-      link: 'https://www.chess.com/'
+      iconDarkImg: './imgs/chess_white.svg',
+      link: 'https://www.chess.com/member/jcosta27'
     }
   ],
   links: [
@@ -135,8 +136,8 @@ const main = {
   contacts: [
     {
       label: 'Email',
-      value: 'omelhor.ze@gmail.com',
-      link: 'mailto:omelhor.ze@gmail.com?Subject=Hello'
+      value: 'up202004823@up.pt',
+      link: 'mailto:up202004823@up.pt?Subject=Hello'
     },
     {
       label: 'GitHub',
@@ -276,45 +277,6 @@ const main = {
       ]
     },
     {
-      name: "SecLens - AI Security Assistant",
-      description: "SecLens is an AI-powered security assistant for VS Code that helps developers find, understand, and fix vulnerabilities in Python code. \n\nThe extension runs static security scans with Bandit, enriches each finding with OpenAI-based analysis, and presents results directly inside the editor through diagnostics, hover tooltips, and an interactive sidebar dashboard.\n\n Users can review CWE references, severity, CIA impact, contextual explanations, and apply AI-generated smart fixes with one click.",
-      stack: ["Python", "Bandit", "VSCode API", "TypeScript", "Node.js"],
-      repo: "https://github.com/JaySuave/seclens",
-      media: [
-        {
-          type: "image",
-          src: "./media/seclens-ai-security-assistant/seclens.webp",
-          alt: "seclens"
-        },
-        {
-          type: "video",
-          src: "./media/seclens-ai-security-assistant/seclens.mp4",
-          poster: "./media/seclens-ai-security-assistant/seclens.webp",
-          speed: 2,
-          alt: "seclens",
-          loop: true
-        }
-      ]
-    },
-    {
-      name: "Machine Learning NBA Playoff Prediction",
-      description: "Built a machine learning pipeline to predict which basketball teams would qualify for the playoffs using historical team, player, coach and awards data. The project included data cleaning, feature engineering, exploratory analysis, model comparison and final prediction generation.\n\nThe model combines player performance metrics, award-based boosts, and coach win-rate history into a team rating, then uses classification models such as Logistic Regression, Random Forest, Decision Tree and HistGradientBoosting to estimate playoff qualification. The final output ranks teams by playoff probability and selects the top 8 teams as predicted qualifiers.",
-      stack: ["Python", "Pandas", "scikit-learn", "matplotlib", "seaborn"],
-      repo: "https://github.com/JaySuave/machine-learning-nba-prediction",
-      media: [
-        {
-          type: "image",
-          src: "./media/machine-learning-nba-playoff-prediction/roc.webp",
-          alt: "roc"
-        },
-        {
-          type: "image",
-          src: "./media/machine-learning-nba-playoff-prediction/correlation.webp",
-          alt: "correlation"
-        }
-      ]
-    },
-    {
       name: "AI Cogito Game",
       description: "Pygame puzzle game inspired by Cogito, featuring manual gameplay and an AI solver capable of solving board configurations using BFS, DFS, Iterative Deepening, Uniform Cost Search, Greedy Search, and A*. Implemented state generation, board hashing, move-history tracking, and heuristic evaluation with Manhattan Distance and Out-of-Place Cells to compare informed and uninformed search strategies.",
       stack: ["Python", "Pygame", "Search Algorithms"],
@@ -358,6 +320,66 @@ const main = {
           type: "image",
           src: "./media/ai-cogito-game/cogito-fast-greedy.webp",
           alt: "cogito-fast-greedy"
+        }
+      ]
+    },
+    {
+      name: "Distributed Shopping Lists",
+      description: "This project is a local-first distributed shopping list system designed to explore synchronization and consistency in replicated data. Each client keeps a local copy of its lists and records edits as operations, which are later synchronized with a central service that stores them durably, resolves concurrent changes, and broadcasts the updated state back to connected users through a ZeroMQ-based publish/subscribe layer.\n\nIts main academic focus is operation-based synchronization with CRDT-inspired conflict resolution. Instead of syncing entire list snapshots, the system syncs user actions and applies deterministic merge rules, such as last-write-wins registers, PN-counters, and tombstones, so that concurrent edits, offline changes, and delayed messages still converge to a consistent final state. ZeroMQ is used here as a lightweight asynchronous messaging layer, separating conflict resolution from realtime update delivery and reinforcing the distributed nature of the system.",
+      stack: ["React", "NestJS", "PostgreSQL", "Prisma", "Redis", "ZeroMQ", "Dexie"],
+      repo: "https://github.com/JaySuave/local-first-shopping-lists-app",
+      media: [
+        {
+          type: "image",
+          src: "./media/distributed-shopping-lists/diagram.webp",
+          alt: "diagram"
+        },
+        {
+          type: "video",
+          src: "./media/distributed-shopping-lists/demo.mp4",
+          poster: "./media/distributed-shopping-lists/demo.webp",
+          speed: 3,
+          alt: "demo",
+          loop: true
+        }
+      ]
+    },
+    {
+      name: "SecLens - AI Security Assistant",
+      description: "SecLens is an AI-powered security assistant for VS Code that helps developers find, understand, and fix vulnerabilities in Python code. \n\nThe extension runs static security scans with Bandit, enriches each finding with OpenAI-based analysis, and presents results directly inside the editor through diagnostics, hover tooltips, and an interactive sidebar dashboard.\n\n Users can review CWE references, severity, CIA impact, contextual explanations, and apply AI-generated smart fixes with one click.",
+      stack: ["Python", "Bandit", "VSCode API", "TypeScript", "Node.js"],
+      repo: "https://github.com/JaySuave/seclens",
+      media: [
+        {
+          type: "image",
+          src: "./media/seclens-ai-security-assistant/seclens.webp",
+          alt: "seclens"
+        },
+        {
+          type: "video",
+          src: "./media/seclens-ai-security-assistant/seclens.mp4",
+          poster: "./media/seclens-ai-security-assistant/seclens.webp",
+          speed: 2,
+          alt: "seclens",
+          loop: true
+        }
+      ]
+    },
+    {
+      name: "Machine Learning NBA Playoff Prediction",
+      description: "Built a machine learning pipeline to predict which basketball teams would qualify for the playoffs using historical team, player, coach and awards data. The project included data cleaning, feature engineering, exploratory analysis, model comparison and final prediction generation.\n\nThe model combines player performance metrics, award-based boosts, and coach win-rate history into a team rating, then uses classification models such as Logistic Regression, Random Forest, Decision Tree and HistGradientBoosting to estimate playoff qualification. The final output ranks teams by playoff probability and selects the top 8 teams as predicted qualifiers.",
+      stack: ["Python", "Pandas", "scikit-learn", "matplotlib", "seaborn"],
+      repo: "https://github.com/JaySuave/machine-learning-nba-prediction",
+      media: [
+        {
+          type: "image",
+          src: "./media/machine-learning-nba-playoff-prediction/roc.webp",
+          alt: "roc"
+        },
+        {
+          type: "image",
+          src: "./media/machine-learning-nba-playoff-prediction/correlation.webp",
+          alt: "correlation"
         }
       ]
     },

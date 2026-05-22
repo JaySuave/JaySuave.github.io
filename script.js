@@ -3,6 +3,103 @@ const getDOM = selector => () => {
 };
 
 const roles = Array.isArray(main.role) ? main.role.join(' / ') : main.role;
+const themeStorageKey = 'portfolio-theme';
+
+const getSystemTheme = () =>
+  window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+
+const getStoredTheme = () => {
+  try {
+    const storedTheme = window.localStorage.getItem(themeStorageKey);
+    return storedTheme === 'dark' || storedTheme === 'light' ? storedTheme : null;
+  } catch (error) {
+    return null;
+  }
+};
+
+const setStoredTheme = theme => {
+  try {
+    window.localStorage.setItem(themeStorageKey, theme);
+  } catch (error) {
+    return;
+  }
+};
+
+const getAppliedTheme = () => {
+  const theme = document.documentElement.dataset.theme;
+  return theme === 'dark' || theme === 'light' ? theme : getSystemTheme();
+};
+
+const applyTheme = theme => {
+  document.documentElement.dataset.theme = theme;
+};
+
+const updateThemedImages = () => {
+  const isDark = getAppliedTheme() === 'dark';
+
+  document.querySelectorAll('[data-light-src][data-dark-src]').forEach(image => {
+    image.src = isDark ? image.dataset.darkSrc : image.dataset.lightSrc;
+  });
+};
+
+const updateThemeToggle = button => {
+  const isDark = getAppliedTheme() === 'dark';
+  const label = isDark ? 'Switch to light mode' : 'Switch to dark mode';
+
+  button.setAttribute('aria-label', label);
+  button.setAttribute('aria-pressed', String(isDark));
+  button.title = label;
+  button.innerHTML = `<ion-icon name="${isDark ? 'sunny-outline' : 'moon-outline'}"></ion-icon>`;
+  updateThemedImages();
+};
+
+const initThemeToggle = () => {
+  const storedTheme = getStoredTheme();
+  let pointerTriggered = false;
+
+  if (storedTheme) {
+    applyTheme(storedTheme);
+  }
+
+  const button = document.createElement('button');
+  button.className = 'theme-toggle';
+  button.type = 'button';
+  document.body.prepend(button);
+  updateThemeToggle(button);
+
+  button.addEventListener('pointerdown', () => {
+    pointerTriggered = true;
+  });
+
+  button.addEventListener('click', () => {
+    const nextTheme = getAppliedTheme() === 'dark' ? 'light' : 'dark';
+
+    applyTheme(nextTheme);
+    setStoredTheme(nextTheme);
+    updateThemeToggle(button);
+
+    if (pointerTriggered) {
+      button.blur();
+    }
+
+    pointerTriggered = false;
+  });
+
+  if (window.matchMedia) {
+    const themeQuery = window.matchMedia('(prefers-color-scheme: dark)');
+    const syncWithSystemTheme = () => {
+      if (!getStoredTheme()) {
+        updateThemeToggle(button);
+      }
+    };
+
+    if (themeQuery.addEventListener) {
+      themeQuery.addEventListener('change', syncWithSystemTheme);
+    } else if (themeQuery.addListener) {
+      themeQuery.addListener(syncWithSystemTheme);
+    }
+  }
+};
 
 // Values DOM nodes
 const dom = {
@@ -27,6 +124,8 @@ const dom = {
   }
 };
 
+initThemeToggle();
+
 function assignDOM(dom, value, options) {
   if (!dom) {
     return;
@@ -43,10 +142,10 @@ function assignDOM(dom, value, options) {
 
 const connectsDOM = main.connects
   .map(
-    ({ name, iconName, iconSvg, iconImg, link }) =>
+    ({ name, iconName, iconSvg, iconImg, iconDarkImg, link }) =>
       `<a href="${link}" target="_blank" rel="noreferrer" title="${name}" aria-label="${name}">${
         iconImg
-          ? `<img src="${iconImg}" alt="" class="social-icon-img">`
+          ? `<img src="${iconImg}" alt="" class="social-icon-img" data-light-src="${iconImg}" data-dark-src="${iconDarkImg || iconImg}">`
           : iconSvg || `<ion-icon name="${iconName}"></ion-icon>`
       }</a>`
   )
@@ -63,7 +162,12 @@ const getProjectLinks = project => {
   const links = [];
 
   if (project.repo) {
-    links.push(`<a href="${project.repo}" target="_blank" rel="noreferrer">Repository</a>`);
+    links.push(`
+      <a href="${project.repo}" target="_blank" rel="noreferrer" class="repo-link" aria-label="Repository on GitHub">
+        <ion-icon name="logo-github" aria-hidden="true"></ion-icon>
+        <span>Repository</span>
+      </a>
+    `);
   }
 
   return links.join(' - ');
@@ -323,6 +427,7 @@ if (mainRole) {
 
 if (mainConnects) {
   assignDOM(mainConnects, connectsDOM);
+  updateThemedImages();
 }
 
 if (mainLinks) {
