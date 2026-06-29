@@ -312,10 +312,100 @@ const getAboutPage = sections =>
   sections
     .map(
       paragraph => `
-        <p class="text-lg leading-relaxed about-paragraph">${paragraph}</p>
+        <p class="text-lg leading-relaxed about-paragraph">${renderTextWithLinks(paragraph)}</p>
       `
     )
     .join('\n');
+
+const renderTextWithLinks = text => {
+  const input = String(text || '');
+  const linkPattern = /\[([^\]]+)\]\((https?:\/\/[^\s)]+|mailto:[^\s)]+|\/[^\s)]*)\)/g;
+  let lastIndex = 0;
+  let result = '';
+  let match;
+
+  while ((match = linkPattern.exec(input))) {
+    if (match.index > lastIndex) {
+      result += escapeHTML(input.slice(lastIndex, match.index)).replace(/\n/g, '<br>');
+    }
+
+    const label = escapeHTML(match[1]);
+    const link = escapeHTML(match[2]);
+
+    result += `<a href="${link}" target="_blank" rel="noreferrer" class="inline-link">${label}</a>`;
+    lastIndex = linkPattern.lastIndex;
+  }
+
+  if (lastIndex < input.length) {
+    result += escapeHTML(input.slice(lastIndex)).replace(/\n/g, '<br>');
+  }
+
+  return result;
+};
+
+const renderOrganization = organization => {
+  if (organization && typeof organization === 'object') {
+    return escapeHTML(organization.name || '');
+  }
+
+  return escapeHTML(organization);
+};
+
+const getTimelineMetaLink = linkData => {
+  if (!linkData || !linkData.link) {
+    return '';
+  }
+
+  const { name, iconName, link, label } = linkData;
+  const linkName = escapeHTML(name || label || 'Link');
+  const linkLabel = escapeHTML(label || name || 'Link');
+  const linkIcon = escapeHTML(iconName || 'globe-outline');
+  const href = escapeHTML(link);
+
+  return `
+    <a href="${href}" target="_blank" rel="noreferrer" aria-label="${linkName}" title="${linkName}" class="timeline-meta-link">
+      <ion-icon name="${linkIcon}" aria-hidden="true"></ion-icon>
+      <span class="timeline-meta-link-label">${linkLabel}</span>
+    </a>
+  `;
+};
+
+const getOrganizationWebsiteLink = organization => {
+  if (!organization || typeof organization !== 'object' || !organization.link) {
+    return '';
+  }
+
+  return getTimelineMetaLink({
+    name: `${organization.name || 'Organization'} website`,
+    iconName: 'globe-outline',
+    link: organization.link,
+    label: 'Website'
+  });
+};
+
+const getTimelineMetaLinks = (item, group) => {
+  const links = [];
+
+  if (group.title === 'Experience') {
+    const websiteLink = getOrganizationWebsiteLink(item.organization);
+
+    if (websiteLink) {
+      links.push(websiteLink);
+    }
+  }
+
+  if (Array.isArray(item.organizationLinks)) {
+    links.push(...item.organizationLinks.map(getTimelineMetaLink).filter(Boolean));
+  }
+
+  return links.length
+    ? `
+      <span class="timeline-meta-links">
+        ${links.join('')}
+      </span>
+    `
+    : '';
+};
 
 const getTimelineGroups = groups =>
   groups
@@ -331,21 +421,8 @@ const getTimelineGroups = groups =>
                     <div class="timeline-period">${item.period}</div>
                     <div class="timeline-card">
                       <p class="timeline-meta">
-                        <span>${item.organization}</span>
-                        ${
-                          item.organizationLinks && item.organizationLinks.length
-                            ? `
-                              <span class="timeline-meta-links">
-                                ${item.organizationLinks
-                                  .map(
-                                    ({ name, iconName, link }) =>
-                                      `<a href="${link}" target="_blank" rel="noreferrer" aria-label="${name}" title="${name}"><ion-icon name="${iconName}"></ion-icon></a>`
-                                  )
-                                  .join('')}
-                              </span>
-                            `
-                            : ''
-                        }
+                        <span>${renderOrganization(item.organization)}</span>
+                        ${getTimelineMetaLinks(item, group)}
                       </p>
                       <h3 class="timeline-title">${item.title}</h3>
                       <p class="timeline-description">${item.description}</p>

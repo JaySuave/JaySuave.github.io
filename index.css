@@ -399,6 +399,7 @@ a:hover {
 .timeline-meta {
   align-items: center;
   display: flex;
+  flex-wrap: wrap;
   gap: 0.6rem;
   font-size: 0.95rem;
   margin: 0;
@@ -407,6 +408,7 @@ a:hover {
 .timeline-meta-links {
   display: inline-flex;
   gap: 0.5rem;
+  flex-wrap: wrap;
 }
 
 .timeline-meta-links a {
@@ -416,6 +418,35 @@ a:hover {
 
 .timeline-meta-links ion-icon {
   font-size: 1.1rem;
+}
+
+.timeline-org-link {
+  align-items: center;
+  display: inline-flex;
+  gap: 0.35rem;
+  text-decoration: none;
+}
+
+.timeline-org-link ion-icon {
+  font-size: 1rem;
+}
+
+.timeline-meta-link {
+  align-items: center;
+  gap: 0.3rem;
+  line-height: 1;
+  text-decoration: none;
+}
+
+.timeline-meta-link ion-icon {
+  color: currentColor;
+  flex: 0 0 auto;
+  font-size: 1rem;
+}
+
+.timeline-meta-link-label {
+  font-size: 0.9rem;
+  white-space: nowrap;
 }
 
 .timeline-description {

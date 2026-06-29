@@ -12,10 +12,40 @@ const main = {
       title: 'Experience',
       items: [
         {
-          period: '2025 - Present',
-          title: 'AI Developer / R&D',
-          organization: 'BAI Digital / Smark.io',
+          period: '2026 - Present',
+          title: 'AI / ML Engineer',
+          organization: {
+            name: 'Papayya - Online Personal Training',
+            link: 'https://www.papayya.com/',
+          },
           current: true,
+          description: 'Developing AI / ML systems for customer intelligence, operational automation and retention in digital personal training.',
+          points: [
+            'Modelled predictive analytics pipelines for labelling health-related customer concerns and identifying churn risk from training-session data.',
+            'Designed data workflows that connect sessions, customer interactions, satisfaction signals and operational metrics into structured AI-ready datasets.',
+          ]
+        },
+        {
+          period: '2025 - Current',
+          title: 'Teacher',
+          organization: { 
+            name: 'SharkCoders',
+            link: 'https://www.sharkcoders.pt/',
+          },
+          current: true,
+          description: 'Teaching robotics and game development in a hands-on learning environment.',
+          points: [
+            'Teaching Arduino, Raspberry Pi and basic electronics.',
+            'Supporting game development with Lua, Defold, GDScript, Python and introductory 3D modeling.'
+          ]
+        },
+        {
+          period: '2025 - 2026',
+          title: 'AI Developer / R&D',
+          organization: {
+            name: 'BAI Digital / Smark.io',
+            link: 'https://bai.digital/en/', 
+          },         
           description: 'Working on AI-driven search and data products for real-estate workflows.',
           points: [
             'Built a dynamic search engine using vector embeddings and LLMs.',
@@ -25,20 +55,12 @@ const main = {
           ]
         },
         {
-          period: '2025 - Current',
-          title: 'Teacher',
-          organization: 'SharkCoders',
-          current: true,
-          description: 'Teaching robotics and game development in a hands-on learning environment.',
-          points: [
-            'Teaching Arduino, Raspberry Pi and basic electronics.',
-            'Supporting game development with Lua, Defold, GDScript, Python and introductory 3D modeling.'
-          ]
-        },
-        {
           period: '2025',
           title: 'Backend Developer',
-          organization: 'MedTiles / FEUP Partnership',
+          organization: {
+            name:'MedTiles / FEUP Partnership',
+            link: 'https://med.tiles-ai.com/',
+          },
           description: 'Contributed to an AI-powered educational content generator in an academic-industry collaboration.',
           points: [
             'Worked primarily on backend development with occasional frontend support.',
@@ -48,7 +70,10 @@ const main = {
         {
           period: '2023',
           title: 'Software Engineering Intern',
-          organization: 'Namecheap, Inc.',
+          organization: {
+            name: 'Namecheap, Inc.',
+            link: 'https://www.namecheap.com/',
+          },
           description: 'Developed backend services for internal business systems.',
           points: [
             'Built a RESTful API for back-office use and app integration.',
@@ -479,6 +504,19 @@ const main = {
       ]
     },
     {
+      name: "MimeStudio - WebCam Gesture Orchestra",
+      description: "Built a gesture-controlled music instrument that turns real-time hand tracking into drum hits and synth notes. The system uses a webcam to detect both hands, maps finger positions to notes, and lets you sculpt the synth waveform with the left hand while playing melodies/chords with the right. It includes a lightweight drum machine with kick/snare synthesis, looping/recording, and a testing/evaluation flow for usability feedback.",
+      stack: ["OpenCV", "MediaPipe", "PyGame", "NumPy", "Matplotlib"],
+      repo: "https://github.com/JaySuave/MimeStudio",
+      media: [
+        {
+          type: "image",
+          src: "./media/mimestudio-webcam-gesture-orchestra/mimestudio-synth-mode.webp",
+          alt: "mimestudio-synth-mode"
+        }
+      ]
+    },
+    {
       name: "Java Tetris",
       description: "A terminal-based Tetris game built in Java using Gradle and the Lanterna text UI library. The project recreates the core Tetris gameplay loop, including random piece generation, movement, rotation, collision detection, line clearing, scoring, game-over handling, and difficulty controls.\n\nThe codebase follows an MVC architecture, separating game state, rendering, and input handling. It also applies design patterns such as State for piece behavior and Command for difficulty changes, making the implementation easier to extend and test.",
       stack: ["Java", "Groovy", "Lanterna", "JUnit", "Spock"],
@@ -550,12 +588,6 @@ const main = {
           alt: "prog1"
         }
       ]
-    },
-    {
-      name: "Personal Portfolio",
-      description: "This personal website, built as a lightweight static portfolio with project, about, timeline, and contact sections.",
-      stack: ["HTML", "CSS", "JavaScript"],
-      repo: "https://github.com/JaySuave/JaySuave.github.io"
     }
   ]
 };
