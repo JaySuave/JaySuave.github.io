@@ -1,6 +1,6 @@
 const main = {
   name: 'José Costa',
-  img: './imgs/profile.jpeg',
+  img: './imgs/profile.png',
   role: ['Developer'],
   aboutShort: 'Computer Engineering master’s student and developer focused on building practical software, from AI-powered products and data pipelines to backend systems and educational technology.',
   aboutLong: [
